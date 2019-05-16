@@ -8,6 +8,7 @@ services:
     ports:
       - '5000:5000'  # HTTP (Airflow Web UI)
     environment:
+      - WHIRL_INITIATOR
       - WHIRL_SETUP_FOLDER
       - UNPAUSE_DAG
     volumes:
