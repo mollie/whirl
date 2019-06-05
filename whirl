@@ -125,6 +125,20 @@ usage() {
   exit 1
 }
 
+check_updates() {
+  current_branch=$(git branch | grep \* | cut -d ' ' -f2)
+  line_diffs=$(git diff $current_branch "origin/$current_branch")
+  if [[ $line_diffs -eq 0 ]]; then
+    read -n 1 -p "Newer version available. Do you want to update? [y/n]"
+    echo ""
+    if [[ $$ -eq "y" ]]; then
+      echo "yes update please"
+    else
+      echo "no updating"
+    fi
+  fi
+}
+
 function read_arguments() {
   while [[ $# -gt 0 ]]
   do
@@ -159,6 +173,8 @@ function read_arguments() {
 }
 
 function main() {
+  check_updates
+
   read_arguments "$@"
 
   if detect_potential_dag; then
