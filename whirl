@@ -134,7 +134,7 @@ check_updates() {
     if [[ $$ -eq "y" ]]; then
       echo "yes update please"
     else
-      echo "no updating"
+      echo "no updatings"
     fi
   fi
 }
