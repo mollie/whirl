@@ -126,16 +126,19 @@ usage() {
 }
 
 check_updates() {
+  git remote update > /dev/null
   current_branch=$(git branch | grep \* | cut -d ' ' -f2)
-  line_diffs=$(git diff $current_branch "origin/$current_branch")
-  if [[ $line_diffs -eq 0 ]]; then
-    read -n 1 -p "Newer version available. Do you want to update? [y/n]"
-    echo ""
-    if [[ $$ -eq "y" ]]; then
-      echo "yes update please"
-    else
-      echo "no updatings"
-    fi
+  commits_behind=$(git rev-list "${current_branch}..origin/${current_branch}" --count)
+  if [[ $commits_behind -gt 0 ]]; then
+    while true; do
+      read -n 1 -p "New commits available on remote branch. Do you want to update? [y/n]" yn
+      echo ""
+      case $yn in
+        [Yy]* ) git pull; break;;
+        [Nn]* ) break;;
+        * ) echo "Please answer yes or no.";;
+      esac
+    done
   fi
 }
 
