@@ -1,9 +1,6 @@
 #!/usr/bin/bash
 
 SCRIPT_DIR=$( dirname ${BASH_SOURCE[0]} )
-# the file credentials.json should not be checked into git, and is therefore added to the .gitignore
-# make sure you obtain the credentials file and paste it in the whirl.setup.d folder
-cp "$SCRIPT_DIR/credentials.json" /credentials.json
 
 echo "========================================="
 echo "= Download and install Google Cloud SDK ="
