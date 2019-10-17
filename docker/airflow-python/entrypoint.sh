@@ -27,10 +27,10 @@ for filename in ${WHIRL_SETUP_FOLDER}/env.d/*.sh; do
 done
 
 echo "========================================="
-echo "== Setup dag specifics =================="
+echo "== Setup DAG specifics =================="
 echo "========================================="
 for filename in ${WHIRL_SETUP_FOLDER}/dag.d/*.sh; do
-  echo "Executing dag prepare script: $filename"
+  echo "Executing DAG prepare script: $filename"
   if [ -x "$filename" ]; then
     "$filename"
   else
@@ -39,8 +39,12 @@ for filename in ${WHIRL_SETUP_FOLDER}/dag.d/*.sh; do
 done
 
 echo "Starting Airflow scheduler..."
-airflow scheduler -D && sleep 15
+nohup airflow scheduler -D &
 
+echo  "wait a while for the scheduler to be started"
+sleep 15
+
+echo "If needed, unpause dags..."
 if [ "${UNPAUSE_DAG}" = true ]; then
     echo "================================="
     echo "== Enabling all available DAGs =="
@@ -56,4 +60,5 @@ if [ "${UNPAUSE_DAG}" = true ]; then
   end
 fi
 
+echo "Starting Airflow webserver..."
 airflow webserver -p 5000
