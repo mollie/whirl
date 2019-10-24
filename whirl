@@ -2,7 +2,6 @@
 AIRFLOW_UI_PORT=5000
 SCRIPT_DIR=$( dirname ${BASH_SOURCE[0]} )
 
-set -ev
 # load and export environment variables
 # priority order:
 #     .whirl.env in home directory

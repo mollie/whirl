@@ -2,7 +2,8 @@
 echo "========================================="
 echo "== Initialize Airflow ==================="
 echo "========================================="
-airflow upgradedb
+export AIRFLOW__CORE__LOAD_EXAMPLES=False
+airflow initdb
 echo "========================================="
 echo "== Reset Airflow ========================"
 echo "========================================="
@@ -10,7 +11,6 @@ rm -rf ${AIRFLOW_HOME}/*.pid
 rm -rf ${AIRFLOW_HOME}/*.err
 rm -rf ${AIRFLOW_HOME}/*.log
 rm -rf ${AIRFLOW_HOME}/logs/*
-echo "y" | airflow resetdb
 echo "Removing airflows default connections"
 python /delete_all_airflow_connections.py
 
