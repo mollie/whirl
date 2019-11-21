@@ -1,25 +1,5 @@
 #!/usr/bin/bash
 
-SCRIPT_DIR=$( dirname ${BASH_SOURCE[0]} )
-
-echo "========================================="
-echo "= Download and install Google Cloud SDK ="
-echo "========================================="
-
-SDK_VERSION=244.0.0
-SHA256=832567cbd0046fd6c80f55196c5c2a8ee3a0f1e1e2587b4a386232bd13abc45b
-
-cd /
-wget "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-${SDK_VERSION}-linux-x86_64.tar.gz"
-echo "${SHA256} google-cloud-sdk-${SDK_VERSION}-linux-x86_64.tar.gz" | sha256sum -c -
-tar xzf /google-cloud-sdk-${SDK_VERSION}-linux-x86_64.tar.gz
-rm /google-cloud-sdk-${SDK_VERSION}linux-x86_64.tar.gz
-/google-cloud-sdk/install.sh --quiet
-echo "export PATH=/google-cloud-sdk/bin:$PATH" >> ~/.bashrc
-source ~/.bashrc
-gcloud components install beta --quiet
-
-
 echo "======================================="
 echo "= Configure GCP connection in Airflow ="
 echo "======================================="

@@ -2,7 +2,9 @@ version: '3'
 
 services:
   airflow:
-    image: docker-whirl-airflow:py-${PYTHON_VERSION}-local
+    build:
+      context: ${DOCKER_CONTEXT_FOLDER}/gcp-sdk
+      dockerfile: Dockerfile
     env_file:
       - .whirl.env
     ports:
@@ -15,4 +17,4 @@ services:
       - ${DAG_FOLDER}:/usr/local/airflow/dags/$PROJECTNAME
       - ${ENVIRONMENT_FOLDER}/whirl.setup.d:${WHIRL_SETUP_FOLDER}/env.d/
       - ${DAG_FOLDER}/whirl.setup.d:${WHIRL_SETUP_FOLDER}/dag.d/
-      - ${HOME}/.config:/root/.config
+      - ${HOME}/.config:/home/airflow/.config

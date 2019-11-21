@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
+echo "============================"
+echo "======== Add java =========="
+echo "============================"
+
+sudo apt-get update && sudo apt-get install -y openjdk-11-jre
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 
 echo "============================"
 echo "== Configure Spark config =="
@@ -6,8 +12,8 @@ echo "============================"
 airflow connections -a \
     --conn_id spark_default \
     --conn_type spark \
-    --conn_host local \
-    --conn_extra "{\"queue\": \"root.default\"}"
+    --conn_host "spark://sparkmaster:7077" \
+    --conn_extra "{\"queue\": \"root.default\", \"deploy-mode\": \"client\"}"
 
 POSTGRES_JDBC_CHECKSUM=7ffa46f8c619377cdebcd17721b6b21ecf6659850179f96fec3d1035cf5a0cdc
 HADOOP_AWS_CHECKSUM=af9f18a0fcef4c564deea6f3ca1eec040b59be3d1cfd7fa557975d25d90e23f6
