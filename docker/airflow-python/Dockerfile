@@ -51,6 +51,7 @@ ENV PIP_NO_CACHE_DIR=${PIP_NO_CACHE_DIR}
 
 RUN pip install --upgrade pip \
     && pip install apache-airflow[atlas,async,cassandra,celery,cgroups,cloudant,crypto,dask,databricks,datadog,doc,docker,druid,elasticsearch,gcp_api,github_enterprise,google_auth,hdfs,hive,jdbc,jira,kerberos,ldap,mongo,mysql,oracle,password,pinot,postgres,qds,rabbitmq,redis,salesforce,samba,sendgrid,segment,slack,snowflake,ssh,statsd,vertica,webhdfs,winrm]=="${AIRFLOW_VERSION}" \
+    && pip install werkzeug==0.16.1 \
     && mkdir -p "${AIRFLOW_HOME}/dags" \
 
 RUN mkdir -p "${WHIRL_SETUP_FOLDER}/env.d"
